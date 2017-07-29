@@ -1,5 +1,6 @@
 source("Function.R")
 source("Coordinate.R")
+library(ggplot2)
 
 Controller <- setRefClass("Controller")
 Controller$methods(
@@ -16,9 +17,8 @@ Controller$methods(
     yList = list(numCoords)
     for(i in 1:numCoords) {
       x = runif(1) * 100
-      coord = Coordinate$new(x = x, y = trueFunc$evaluate(x) + rnorm(1)*trueFunc$getSlope())
-      xList[[i]] = coord$getXCoordinate()
-      yList[[i]] = coord$getYCoordinate()
+      xList[[i]] = x
+      yList[[i]] = trueFunc$evaluate(x) + rnorm(1)*trueFunc$getSlope()
     }
     myList = list(xList, yList)
     return(myList)
@@ -27,7 +27,10 @@ Controller$methods(
 
 controller = Controller$new()
 trueFunc = controller$generateRandomFunction()
-data = controller$generateCoordinates(100, trueFunc)
+system.time(controller$generateCoordinates(1000,trueFunc))
+data = controller$generateCoordinates(1000, trueFunc)
 xList = data[[1]]
 yList = data[[2]]
-system.time(plot(xList, yList))
+plot(unlist(xList), unlist(yList))
+
+

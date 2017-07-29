@@ -23,6 +23,6 @@ Func$methods(
   },
   
   printFunction = function() {
-    paste("The function is", .self$slope, "x +", .self$yInt)
+    print(paste("The function is", .self$slope, "x +", .self$yInt))
   }
 )

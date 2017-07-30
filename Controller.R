@@ -1,5 +1,6 @@
 source("Function.R")
 source("Coordinate.R")
+source("StatCalc.R")
 library(ggplot2)
 
 Controller <- setRefClass("Controller")
@@ -27,10 +28,12 @@ Controller$methods(
 
 controller = Controller$new()
 trueFunc = controller$generateRandomFunction()
-system.time(controller$generateCoordinates(1000,trueFunc))
 data = controller$generateCoordinates(1000, trueFunc)
 xList = data[[1]]
 yList = data[[2]]
 plot(unlist(xList), unlist(yList))
+calculator = StatCalc$new()
+approxFunc = controller$generateRandomFunction()
+calculator$meanSquaredError(xList, yList, approxFunc)
 
 

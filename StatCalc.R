@@ -7,6 +7,8 @@ StatCalc$methods(
       squaredError = (approximateY - yList[[i]])^2
       sumSquaredError = squaredError + sumSquaredError
     }
+    print(sumSquaredError/length(data))
     return(sumSquaredError/length(data))
+    
   }
 )
